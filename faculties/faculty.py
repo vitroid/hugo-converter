@@ -12,6 +12,27 @@ def twitter(value):
     return name, icon, link
 
 
+def phone(value):
+    name = value
+    icon = "ti-mobile"
+    link = f"tel:{value}"
+    return name, icon, link
+
+
+def flickr(value):
+    name = value
+    icon = "ti-flickr"
+    link = f"https://flickr.com/photos/{value}"
+    return name, icon, link
+
+
+def youtube(value):
+    name = "YouTube Channel"
+    icon = "ti-youtube"
+    link = value
+    return name, icon, link
+
+
 def facebook(value):
     name = value
     icon = "ti-facebook"
@@ -59,9 +80,13 @@ keys = [x[0].value for x in ws["A23:A34"]]
 values = [x[0].value for x in ws["B23:B34"]]
 dc = dict(zip(keys, values))
 dc["email"] = d["e-mail"]
-dc["ResearcherID"] = d["ResearcherID"]
-dc["ORCID"] = d["ORCID"]
-dc["Scholar"] = d["Google Scholar "]
+dc["phone"] = d["研究室電話"]
+
+
+da = dict()
+da["ResearcherID"] = d["ResearcherID"]
+da["ORCID"] = d["ORCID"]
+da["Scholar"] = d["Google Scholar "]
 
 contacts = []
 for key, value in dc.items():
@@ -70,6 +95,14 @@ for key, value in dc.items():
         contacts.append(dict(name=name, icon=icon, link=link))
 
 d["contact_yaml"] = yaml.dump({"contact": contacts})
+
+achieve = []
+for key, value in da.items():
+    if value is not None:
+        name, icon, link = eval(f"{key}('{value}')")
+        achieve.append(dict(name=name, icon=icon, link=link))
+
+d["achievements_yaml"] = yaml.dump({"achievements": achieve})
 
 del d[None]
 d["description"] = d["1行説明"]
