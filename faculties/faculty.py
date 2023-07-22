@@ -108,6 +108,7 @@ del d[None]
 d["description"] = d["1行説明"]
 d["description_en"] = d["one liner(en)"]
 d["name"] = d["name(en)"]
+d["lab"] = "Web site"
 d["tag1_en"] = d["tag1(en)"]
 d["tag2_en"] = d["tag2(en)"]
 d["tag3_en"] = d["tag3(en)"]
@@ -121,9 +122,32 @@ groups = {
     "物質化学": "Material Chemistry",
     "反応化学": "Reaction Chemistry",
 }
+labs = {
+    "ナノ化学": ["nano", "ナノ化学研究室", "Nano Chemistry Laboratory"],
+    "錯体化学研究室": ["coord", "錯体化学研究室", "Coordination Chemistry Laboratory"],
+    "機能有機化学研究室": [
+        "funcchem",
+        "機能有機化学研究室",
+        "Functional Organic Chemistry Laboratory",
+    ],
+    "無機化学研究室": ["inorganic", "無機化学研究室", "Inorganic Chemistry Laboratory"],
+    "有機化学研究室": ["organic", "有機化学研究室", "Laboratory of Organic Chemistry"],
+    "表面物理化学研究室": ["surfphys", "表面物理化学研究室", "Surface Physical Chemistry"],
+    "理論化学研究室": ["theochem", "理論化学研究室", "Theoretical Chemistry Laboratory"],
+    "理論物理化学研究室": [
+        "theophyschem",
+        "理論物理化学研究室",
+        "Theoretical Physical Chemistry Laboratory",
+    ],
+}
+
 d["rank"] = ranks[d["職階"]]
 d["group"] = groups[d["領域"]]
-
+info = labs[d["研究室"]]
+d["lab_ja"] = yaml.dump(
+    {"laboratory": {"id": info[0], "name": info[1]}}, allow_unicode=True
+)
+d["lab_en"] = yaml.dump({"laboratory": {"id": info[0], "name": info[2]}})
 
 with open("faculty.ja.md") as f:
     jjt = f.read()

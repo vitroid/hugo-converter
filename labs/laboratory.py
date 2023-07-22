@@ -76,13 +76,21 @@ dc["email"] = d["代表e-mail"]
 dc["phone"] = d["代表電話"]
 dc["fax"] = d["Fax"]
 
+
+# list of faculties
 keys = [x[0].value for x in ws["A27:A29"]]
 values_ja = [x[0].value for x in ws["B27:B29"]]
 values_en = [x[0].value for x in ws["C27:C29"]]
-ds_ja = dict(zip(keys, values_ja))
-ds_en = dict(zip(keys, values_en))
-del ds_ja[None]
-del ds_en[None]
+f_ja = [
+    {"id": key, "name": name}
+    for key, name in zip(keys, values_ja)
+    if key is not None
+]
+f_en = [
+    {"id": key, "name": name}
+    for key, name in zip(keys, values_en)
+    if key is not None
+]
 
 contacts = []
 for key, value in dc.items():
@@ -110,7 +118,7 @@ d["group"] = groups[d["領域"]]
 with open("laboratory.ja.md") as f:
     jjt = f.read()
 template = jj.Template(jjt)
-d["faculties"] = yaml.dump({"faculties": ds_ja})
+d["faculties"] = yaml.dump({"faculties": f_ja})
 s = template.render(d)
 with open(f"{sys.argv[1]}.ja.md", "w") as f:
     f.write(s)
@@ -119,7 +127,7 @@ with open("laboratory.md") as f:
     jjt = f.read()
 template = jj.Template(jjt)
 s = template.render(d)
-d["faculties"] = yaml.dump({"faculties": ds_en})
+d["faculties"] = yaml.dump({"faculties": f_en})
 s = template.render(d)
 with open(f"{sys.argv[1]}.md", "w") as f:
     f.write(s)
