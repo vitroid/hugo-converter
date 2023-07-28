@@ -111,6 +111,7 @@ groups = {
     "分子化学": "Molecular Chemistry",
     "物質化学": "Material Chemistry",
     "反応化学": "Reaction Chemistry",
+    "界面化学": "Interfacial Chemistry",
 }
 d["group"] = groups[d["領域"]]
 
@@ -118,7 +119,7 @@ d["group"] = groups[d["領域"]]
 with open("laboratory.ja.md") as f:
     jjt = f.read()
 template = jj.Template(jjt)
-d["faculties"] = yaml.dump({"faculties": f_ja})
+d["faculties"] = yaml.dump({"faculties": f_ja}, allow_unicode=True)
 s = template.render(d)
 with open(f"{sys.argv[1]}.ja.md", "w") as f:
     f.write(s)
@@ -127,7 +128,7 @@ with open("laboratory.md") as f:
     jjt = f.read()
 template = jj.Template(jjt)
 s = template.render(d)
-d["faculties"] = yaml.dump({"faculties": f_en})
+d["faculties"] = yaml.dump({"faculties": f_en}, allow_unicode=True)
 s = template.render(d)
 with open(f"{sys.argv[1]}.md", "w") as f:
     f.write(s)
