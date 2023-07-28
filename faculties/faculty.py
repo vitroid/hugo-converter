@@ -199,11 +199,11 @@ with open(f"{sys.argv[1]}.ja.md", "w") as f:
     f.write(s)
 
 
-with open("faculty.md") as f:
+with open("faculty.en.md") as f:
     jjt = f.read()
 template = jj.Template(jjt)
 s = template.render(d)
-with open(f"{sys.argv[1]}.md", "w") as f:
+with open(f"{sys.argv[1]}.en.md", "w") as f:
     f.write(s)
 
 print(s)

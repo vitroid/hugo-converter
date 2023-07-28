@@ -124,13 +124,13 @@ s = template.render(d)
 with open(f"{sys.argv[1]}.ja.md", "w") as f:
     f.write(s)
 
-with open("laboratory.md") as f:
+with open("laboratory.en.md") as f:
     jjt = f.read()
 template = jj.Template(jjt)
 s = template.render(d)
 d["faculties"] = yaml.dump({"faculties": f_en}, allow_unicode=True)
 s = template.render(d)
-with open(f"{sys.argv[1]}.md", "w") as f:
+with open(f"{sys.argv[1]}.en.md", "w") as f:
     f.write(s)
 
 print(s)

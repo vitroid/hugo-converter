@@ -1,8 +1,8 @@
 DEST="/Users/matto/Library/CloudStorage/GoogleDrive-vitroid@gmail.com/My Drive/gitwork/chem-web/exampleSite/content/laboratory/"
 
 all:
-	ls *.xlsx | sed -e s/xlsx/md/g | xargs make
+	ls *.xlsx | sed -e s/xlsx/ja.md/g | xargs make
 
-%.md: %.xlsx laboratory.py laboratory.md laboratory.ja.md
+%.ja.md: %.xlsx laboratory.py laboratory.en.md laboratory.ja.md
 	python laboratory.py $*
-	cp $*.md $*.ja.md $(DEST)
+	cp $*.en.md $*.ja.md $(DEST)
